@@ -1,0 +1,139 @@
+{% extends "layout.html" %}
+
+{% set pageId = "page-create-point" %}
+
+{% block title %}
+  <title>Recicla+ | Cadastrar ponto</title>
+{% endblock title %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/styles/create-point.css"/>
+{% endblock styles %}
+
+{% block content %}
+  <div class="page-container">
+    {% include "partials/page-header.html" %}
+
+    <main class="form-main">
+      <div class="form-intro">
+        <span class="section-kicker">NOVO CADASTRO</span>
+        <h1>Cadastre um ponto de coleta</h1>
+        <p>Preencha os dados abaixo. Depois de cadastrar, o ponto poderá aparecer na pesquisa e no mapa.</p>
+      </div>
+
+      <form action="/savepoint" method="POST" id="point-form">
+        <section class="form-section">
+          <div class="section-title">
+            <div class="step-number">01</div>
+            <div>
+              <h2>Dados do ponto</h2>
+              <p>Informações que aparecerão para os usuários.</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="name">Nome da entidade / estabelecimento <span>*</span></label>
+            <input id="name" type="text" name="name" placeholder="Ex.: JL Motos" required/>
+          </div>
+
+          <div class="field">
+            <label for="image">Foto do ponto <span>*</span></label>
+            <input id="image" type="url" name="image" placeholder="Cole o link da imagem (https://...)" required/>
+            <div class="image-preview" id="image-preview">
+              <span>Pré-visualização da foto</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <div class="section-title">
+            <div class="step-number">02</div>
+            <div>
+              <h2>Localização</h2>
+              <p>Esses dados serão usados para posicionar o ponto no mapa.</p>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field">
+              <label for="address">Endereço <span>*</span></label>
+              <input id="address" type="text" name="address" placeholder="Rua, avenida..." required/>
+            </div>
+
+            <div class="field field-small">
+              <label for="address2">Número / complemento</label>
+              <input id="address2" type="text" name="address2" placeholder="Ex.: 260"/>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <div class="field">
+              <label for="uf">Estado <span>*</span></label>
+              <select id="uf" name="uf" required>
+                <option value="">Selecione o estado</option>
+              </select>
+              <input type="hidden" name="state"/>
+            </div>
+
+            <div class="field">
+              <label for="city">Cidade <span>*</span></label>
+              <select id="city" name="city" disabled required>
+                <option value="">Selecione primeiro o estado</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="location-box">
+            <div>
+              <strong>📍 Quer melhorar a posição no mapa?</strong>
+              <span>Você pode usar a localização atual deste computador/celular.</span>
+            </div>
+            <button type="button" id="use-location">Usar minha localização</button>
+          </div>
+
+          <input type="hidden" name="latitude" id="latitude"/>
+          <input type="hidden" name="longitude" id="longitude"/>
+          <p class="location-status" id="location-status"></p>
+        </section>
+
+        <section class="form-section">
+          <div class="section-title">
+            <div class="step-number">03</div>
+            <div>
+              <h2>Materiais aceitos</h2>
+              <p>Selecione todos os tipos de descarte que este ponto recebe.</p>
+            </div>
+          </div>
+
+          <div class="items-grid">
+            <button type="button" class="item-option" data-id="1"><span class="item-emoji">💡</span><strong>Lâmpadas</strong><small>Descarte especial</small></button>
+            <button type="button" class="item-option" data-id="2"><span class="item-emoji">🔋</span><strong>Pilhas e Baterias</strong><small>Descarte especial</small></button>
+            <button type="button" class="item-option" data-id="3"><span class="item-emoji">📄</span><strong>Papéis e Papelão</strong><small>Recicláveis</small></button>
+            <button type="button" class="item-option" data-id="4"><span class="item-emoji">💻</span><strong>Resíduos Eletrônicos</strong><small>Eletrônicos</small></button>
+            <button type="button" class="item-option" data-id="5"><span class="item-emoji">🍂</span><strong>Resíduos Orgânicos</strong><small>Compostagem</small></button>
+            <button type="button" class="item-option" data-id="6"><span class="item-emoji">🫙</span><strong>Óleo de Cozinha</strong><small>Recicláveis</small></button>
+            <button type="button" class="item-option" data-id="7"><span class="item-emoji">🥤</span><strong>Plásticos</strong><small>Recicláveis</small></button>
+            <button type="button" class="item-option" data-id="8"><span class="item-emoji">🍾</span><strong>Vidros</strong><small>Recicláveis</small></button>
+            <button type="button" class="item-option" data-id="9"><span class="item-emoji">🥫</span><strong>Metais</strong><small>Recicláveis</small></button>
+            <button type="button" class="item-option" data-id="10"><span class="item-emoji">🛞</span><strong>Pneus</strong><small>Descarte especial</small></button>
+            <button type="button" class="item-option" data-id="11"><span class="item-emoji">👕</span><strong>Roupas e Tecidos</strong><small>Reutilização</small></button>
+            <button type="button" class="item-option" data-id="12"><span class="item-emoji">🪵</span><strong>Móveis e Madeira</strong><small>Reutilização</small></button>
+            <button type="button" class="item-option" data-id="13"><span class="item-emoji">🧱</span><strong>Resíduos de Construção</strong><small>Entulho</small></button>
+          </div>
+
+          <input type="hidden" name="items" id="items"/>
+          <p class="items-status" id="items-status">Nenhum material selecionado.</p>
+        </section>
+
+        <div class="form-footer">
+          <a href="/" class="cancel-link">Cancelar</a>
+          <button type="submit" class="submit-button">Cadastrar ponto <span>→</span></button>
+        </div>
+      </form>
+    </main>
+  </div>
+{% endblock content %}
+
+{% block scripts %}
+  <script src="/scripts/create-point.js"></script>
+{% endblock scripts %}

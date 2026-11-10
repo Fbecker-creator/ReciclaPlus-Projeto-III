@@ -1,0 +1,23 @@
+<div id="modal" class="modal-backdrop hide" aria-hidden="true">
+  <div class="search-modal" role="dialog" aria-modal="true" aria-labelledby="search-title">
+    <div class="modal-header">
+      <div>
+        <span class="modal-eyebrow">PESQUISA RÁPIDA</span>
+        <h2 id="search-title">Encontre um ponto</h2>
+      </div>
+      <button type="button" id="close-search" aria-label="Fechar">×</button>
+    </div>
+
+    <p>Digite uma cidade, bairro, nome do estabelecimento ou material.</p>
+
+    <form action="/search" method="GET" class="search-form">
+      <label for="search">O que você está procurando?</label>
+      <div class="search-box">
+        <input id="search" type="search" name="search" placeholder="Ex.: Feliz Natal, JL Motos, eletrônicos..." required autofocus/>
+        <button type="submit">Pesquisar</button>
+      </div>
+    </form>
+
+    <a href="/map" class="modal-map-link">Ou veja todos os pontos no mapa →</a>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+
+{% set pageId = "page-home" %}
+
+{% block title %}
+  <title>Recicla+ | Pontos de descarte</title>
+{% endblock title %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/styles/home.css"/>
+  <link rel="stylesheet" href="/styles/modal.css"/>
+{% endblock styles %}
+
+{% block content %}
+  <div class="home-shell">
+    <header class="site-header">
+      <a class="brand" href="/">
+        <img src="/assets/logo.svg" alt="Recicla+"/>
+      </a>
+
+      <nav class="header-nav">
+        <a href="/map" class="header-link">Mapa dos pontos</a>
+        <a href="/create-point" class="header-link header-link-primary">
+          <span>+</span>
+          Cadastrar ponto
+        </a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">♻️ Recicla+ • descarte consciente</span>
+
+        <h1>Encontre onde <span>descartar</span> seus resíduos.</h1>
+
+        <p>
+          Pesquise pontos de coleta, veja o que cada local recebe e encontre
+          o endereço no mapa de forma rápida e organizada.
+        </p>
+
+        <div class="hero-actions">
+          <button class="button button-primary" id="open-search">
+            <span class="button-icon">⌕</span>
+            Encontrar ponto de coleta
+          </button>
+
+          <a class="button button-secondary" href="/map">
+            Ver todos no mapa
+            <span>→</span>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <strong>Mapa</strong>
+            <span>Pontos cadastrados</span>
+          </div>
+          <div>
+            <strong>Busca</strong>
+            <span>Por cidade ou material</span>
+          </div>
+          <div>
+            <strong>+13</strong>
+            <span>Tipos de descarte</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="floating-card floating-card-top">
+          <span class="status-dot"></span>
+          Pontos próximos
+          <strong>no mapa</strong>
+        </div>
+
+        <div class="recycle-orbit">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="recycle-symbol">♻</div>
+        </div>
+
+        <div class="floating-card floating-card-bottom">
+          <span>🌱</span>
+          <div>
+            <strong>Descarte correto</strong>
+            <small>Ajude sua cidade a reciclar mais.</small>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section class="home-features">
+      <article>
+        <div class="feature-icon">📍</div>
+        <div>
+          <h2>Veja os pontos no mapa</h2>
+          <p>Consulte os locais cadastrados e abra a rota pelo Google Maps.</p>
+        </div>
+      </article>
+
+      <article>
+        <div class="feature-icon">♻️</div>
+        <div>
+          <h2>Saiba o que é aceito</h2>
+          <p>Filtre por cidade, local ou tipo de material recebido.</p>
+        </div>
+      </article>
+
+      <article>
+        <div class="feature-icon">🏪</div>
+        <div>
+          <h2>Cadastre um novo ponto</h2>
+          <p>Adicione sua empresa ou ponto de descarte para ajudar outras pessoas.</p>
+        </div>
+      </article>
+    </section>
+  </div>
+{% endblock content %}
+
+{% block modal %}
+  {% include "partials/modal.html" %}
+{% endblock modal %}
+
+{% block scripts %}
+  <script src="/scripts/index.js"></script>
+{% endblock scripts %}

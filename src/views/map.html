@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+{% set pageId = "page-map" %}
+
+{% block title %}
+  <title>Recicla+ | Mapa dos pontos</title>
+{% endblock title %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/styles/map.css"/>
+{% endblock styles %}
+
+{% block content %}
+  <div class="page-container map-page-container">
+    {% include "partials/page-header.html" %}
+
+    <main class="map-main">
+      <div class="map-heading">
+        <div>
+          <span class="section-kicker">MAPA</span>
+          <h1>Pontos de descarte</h1>
+          <p>Veja todos os pontos cadastrados e escolha o local mais conveniente.</p>
+        </div>
+        <a class="button button-primary small" href="/create-point">+ Cadastrar ponto</a>
+      </div>
+
+      {% if googleMapsApiKey %}
+        <div class="map-layout">
+          <aside class="map-sidebar">
+            <div class="sidebar-top">
+              <strong>{{ places | length }} ponto{% if places | length != 1 %}s{% endif %}</strong>
+              <span>cadastrados</span>
+            </div>
+
+            <div class="map-place-list">
+              {% for place in places %}
+                <button type="button" class="map-place" data-place-id="{{ place.id }}">
+                  <div class="map-place-icon">📍</div>
+                  <div>
+                    <strong>{{ place.name }}</strong>
+                    <span>{{ place.city }} — {{ place.state }}</span>
+                    <small>{{ place.itemsList | join(", ") }}</small>
+                  </div>
+                </button>
+              {% else %}
+                <div class="no-points">
+                  <span>🌱</span>
+                  <strong>Ainda não há pontos cadastrados.</strong>
+                  <a href="/create-point">Cadastrar o primeiro →</a>
+                </div>
+              {% endfor %}
+            </div>
+          </aside>
+
+          <div id="map"></div>
+        </div>
+      {% else %}
+        <div class="map-key-warning">
+          <div class="warning-icon">🗺️</div>
+          <h2>O mapa interativo ainda não está configurado</h2>
+          <p>Adicione sua chave da Google Maps JavaScript API na variável <code>GOOGLE_MAPS_API_KEY</code>. Enquanto isso, os pontos continuam funcionando abaixo com acesso direto ao Google Maps.</p>
+        </div>
+
+        <div class="fallback-place-grid">
+          {% for place in places %}
+            <article class="fallback-place">
+              <div>
+                <span class="place-number">{{ loop.index }}</span>
+                <div>
+                  <h2>{{ place.name }}</h2>
+                  <p>{{ place.address }}{% if place.address2 %}, {{ place.address2 }}{% endif %} — {{ place.city }}/{{ place.state }}</p>
+                  <div class="materials">
+                    {% for item in place.itemsList %}<span>{{ item }}</span>{% endfor %}
+                  </div>
+                </div>
+              </div>
+              {% if place.latitude and place.longitude %}
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination={{ place.latitude }},{{ place.longitude }}">Abrir rota →</a>
+              {% else %}
+                <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query={{ place.address }},%20{{ place.city }},%20{{ place.state }}">Abrir no Maps →</a>
+              {% endif %}
+            </article>
+          {% else %}
+            <div class="empty-state">
+              <div class="empty-icon">🌱</div>
+              <h2>Nenhum ponto cadastrado ainda.</h2>
+              <a class="button button-primary" href="/create-point">Cadastrar primeiro ponto</a>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </main>
+  </div>
+{% endblock content %}
+
+{% block scripts %}
+  {% if googleMapsApiKey %}
+    <script>
+      window.RECICLA_PLACES = {{ places | dump | safe }};
+    </script>
+    <script src="/scripts/map.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ googleMapsApiKey }}&callback=initReciclaMap"></script>
+  {% endif %}
+{% endblock scripts %}

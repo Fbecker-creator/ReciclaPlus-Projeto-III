@@ -1,0 +1,224 @@
+#page-home {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 82% 25%, rgba(25, 168, 102, .12), transparent 25%),
+    linear-gradient(135deg, #f7fbf8 0%, #edf7f1 100%);
+}
+
+#page-home .home-shell {
+  width: min(1180px, 92%);
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+#page-home .hero {
+  min-height: 590px;
+  display: grid;
+  grid-template-columns: 1.04fr .96fr;
+  gap: 50px;
+  align-items: center;
+}
+
+#page-home .hero-copy {
+  padding: 55px 0 25px;
+}
+
+#page-home .eyebrow {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #e2f6eb;
+  color: var(--primary-dark);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+#page-home .hero h1 {
+  margin-top: 20px;
+  max-width: 680px;
+  font-size: clamp(44px, 5.2vw, 68px);
+  line-height: 1.02;
+  letter-spacing: -2.8px;
+}
+
+#page-home .hero h1 span {
+  color: var(--primary);
+}
+
+#page-home .hero p {
+  max-width: 610px;
+  margin-top: 22px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+#page-home .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+#page-home .hero-actions .button-primary {
+  min-height: 52px;
+}
+
+#page-home .button-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+#page-home .hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 42px;
+}
+
+#page-home .hero-stats div {
+  display: grid;
+  gap: 4px;
+}
+
+#page-home .hero-stats strong {
+  color: var(--title);
+  font-size: 14px;
+}
+
+#page-home .hero-stats span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#page-home .hero-visual {
+  min-height: 500px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+#page-home .recycle-orbit {
+  width: min(390px, 78vw);
+  aspect-ratio: 1;
+  position: relative;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 0 34%, #dff4e8 35% 53%, transparent 54%);
+  box-shadow: 0 35px 80px rgba(28, 106, 71, .13);
+}
+
+#page-home .recycle-symbol {
+  width: 150px;
+  height: 150px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--primary);
+  font-size: 82px;
+  box-shadow: 0 15px 35px rgba(28, 106, 71, .13);
+}
+
+#page-home .orbit {
+  position: absolute;
+  border: 1px dashed rgba(25, 168, 102, .30);
+  border-radius: 50%;
+}
+
+#page-home .orbit-one {
+  inset: 12%;
+}
+
+#page-home .orbit-two {
+  inset: 22%;
+}
+
+#page-home .floating-card {
+  position: absolute;
+  z-index: 2;
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(255, 255, 255, .9);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .88);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 45px rgba(34, 70, 51, .13);
+  color: var(--text);
+  font-size: 12px;
+}
+
+#page-home .floating-card strong {
+  color: var(--title);
+}
+
+#page-home .floating-card-top {
+  top: 70px;
+  right: 2%;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#page-home .floating-card-bottom {
+  left: 1%;
+  bottom: 52px;
+}
+
+#page-home .floating-card-bottom div {
+  display: grid;
+  gap: 4px;
+}
+
+#page-home .floating-card-bottom small {
+  color: var(--muted);
+}
+
+#page-home .status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 5px #dff6e9;
+}
+
+#page-home .home-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding: 18px 0 45px;
+}
+
+#page-home .home-features article {
+  display: flex;
+  gap: 16px;
+  padding: 22px;
+  background: rgba(255, 255, 255, .78);
+  border: 1px solid rgba(215, 230, 221, .9);
+  border-radius: 17px;
+}
+
+#page-home .feature-icon {
+  flex: 0 0 45px;
+  width: 45px;
+  height: 45px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: var(--primary-soft);
+  font-size: 21px;
+}
+
+#page-home .home-features h2 {
+  font-size: 15px;
+}
+
+#page-home .home-features p {
+  margin-top: 7px;
+  font-size: 12px;
+  line-height: 1.6;
+}

@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% set pageId = "page-search-results" %}
+
+{% block title %}
+  <title>Recicla+ | Resultados</title>
+{% endblock title %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/styles/search-results.css"/>
+{% endblock styles %}
+
+{% block content %}
+  <div class="page-container">
+    {% include "partials/page-header.html" %}
+
+    <main class="results-main">
+      {% if total > 0 %}
+        <div class="results-heading">
+          <div>
+            <span class="section-kicker">RESULTADOS</span>
+            <h1>Pontos encontrados</h1>
+            <p>{{ total }} ponto{% if total != 1 %}s{% endif %} para <strong>{{ search }}</strong>.</p>
+          </div>
+
+          <a class="button button-primary small" href="/map">Ver no mapa →</a>
+        </div>
+
+        <div class="cards">
+          {% for place in places %}
+            <article class="place-card">
+              <div class="place-image-wrap">
+                <img src="{{ place.image }}" alt="Imagem de {{ place.name }}" loading="lazy"
+                     onerror="this.src='https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=900&q=80';"/>
+                <span class="place-badge">Ponto de coleta</span>
+              </div>
+
+              <div class="place-body">
+                <h2>{{ place.name }}</h2>
+
+                <div class="materials">
+                  {% for item in place.itemsList %}
+                    <span>{{ item }}</span>
+                  {% endfor %}
+                </div>
+
+                <p class="address">
+                  <strong>📍 {{ place.city }} — {{ place.state }}</strong><br/>
+                  {{ place.address }}{% if place.address2 %}, {{ place.address2 }}{% endif %}
+                </p>
+
+                <div class="card-actions">
+                  {% if place.latitude and place.longitude %}
+                    <a class="map-button" target="_blank" rel="noopener"
+                       href="https://www.google.com/maps/dir/?api=1&destination={{ place.latitude }},{{ place.longitude }}">
+                      Abrir rota
+                    </a>
+                  {% else %}
+                    <a class="map-button" target="_blank" rel="noopener"
+                       href="https://www.google.com/maps/search/?api=1&query={{ place.address }},%20{{ place.city }},%20{{ place.state }}">
+                      Abrir no Maps
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <section class="empty-state">
+          <div class="empty-icon">🔎</div>
+          <span class="section-kicker">SEM RESULTADOS</span>
+          <h1>Nenhum ponto encontrado</h1>
+          <p>Experimente pesquisar por outra cidade, nome de estabelecimento ou material.</p>
+
+          <div class="empty-actions">
+            <a class="button button-primary" href="/">Nova pesquisa</a>
+            <a class="button button-secondary" href="/create-point">Cadastrar um ponto</a>
+          </div>
+        </section>
+      {% endif %}
+    </main>
+  </div>
+
+  {% if total > 0 and saved %}
+    <div class="toast" id="success-toast">✓ Ponto cadastrado com sucesso!</div>
+  {% endif %}
+{% endblock content %}
+
+{% block scripts %}
+  <script>
+    const toast = document.querySelector("#success-toast");
+    if (toast) setTimeout(() => toast.classList.add("hide"), 4500);
+  </script>
+{% endblock scripts %}
